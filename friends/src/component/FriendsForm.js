@@ -1,28 +1,57 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { axiosWithAuth } from '../utils/axiosWithAuth'
 
-export const FriendsForm = () => {
+const FriendsForm = ({setNewFriendsList}) => {
+    const [ newFriend, setNewFriend ] = useState({
+        name:'',
+        age:'',
+        email:'',
+        id: Date.now()
+    })
+
+    const handleChange = e => {
+        setNewFriend({...newFriend, [e.target.name]: e.target.value})
+    }
+
+    const handleSubmit = e => {
+        axiosWithAuth()
+        .post('/friends', newFriend)
+        .then(res => setNewFriendsList(res.data));
+        setNewFriend({
+            name:'',
+            age:'',
+            email:''
+        })
+    }
+
     return (
-        <div className="form">
-            <form>
-                <div>
-                    <label>Friendname</label>
+        <div>
+            <form onSubmit={handleSubmit}>
+                <label>Name</label>
                     <input
-                        name="userName"
-                        type="text"    
+                        name="name"
+                        type="text"
+                        value={newFriend.name}    
+                        onChange={handleChange}
                     />
-                </div>
-                <div>
-                    <label>Password</label>
+                <label>Age</label>
                     <input
-                        name="password"
-                        type="password"
+                        name="age"
+                        type="text"  
+                        value={newFriend.age}  
+                        onChange={handleChange}
                     />
-                </div>
-                <button>Log In</button>
+                <label>Email</label>
+                    <input
+                        name="email"
+                        type="text"   
+                        value={newFriend.email} 
+                        onChange={handleChange}
+                    />
+                <button>Friend I Am</button>
             </form>
         </div>
     )
-        
 }
 
 export default FriendsForm
