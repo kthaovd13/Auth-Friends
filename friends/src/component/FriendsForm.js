@@ -5,18 +5,20 @@ export const FriendsForm = () => {
         <div className="form">
             <form>
                 <div>
-                    <label htmlFor="userName">Username</label>
+                    <label>Friendname</label>
                     <input
-                        name="userName"    
+                        name="userName"
+                        type="text"    
                     />
                 </div>
                 <div>
-                    <label htmlFor="password">Password</label>
+                    <label>Password</label>
                     <input
                         name="password"
+                        type="password"
                     />
                 </div>
-                <button>Sign On</button>
+                <button>Log In</button>
             </form>
         </div>
     )
